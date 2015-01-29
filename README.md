@@ -21,5 +21,8 @@ SumoLogic collector and content for Dropbox Business
   2. Command: /usr/bin/python
   3. Enter full path to collector script, e.g.: /usr/local/dropbox_collector_for_sumologic.py
     Working directory, e.g.: /usr/local
+11. Import Library content (queries and dashboards)
+  1. Open up "Library Export.json" in a text editor, substituting "_sourceCategory=DropBox" with the appropriate search string.
+  2. Import json file using normal import method
 
 Full Installation instructions (including screenshots) in pdf document in this repository
