@@ -45,7 +45,7 @@ class DropBoxAccess():
                 access_token = serialized_token[len('oauth2:'):]
                 self.api_client = client.DropboxClient(access_token)
             else:
-                print "Malformed access token in %r." % (self.TOKEN_FILE,)
+                print("Malformed access token in ", (self.TOKEN_FILE,))
         except ConfigParser.NoSectionError:
             pass
 
@@ -69,8 +69,8 @@ class DropBoxAccess():
         try:
             rc = RESTClientObject()
             ret = rc.request(method = "POST", url = url, body=bodytext, headers = headers)
-        except rest.ErrorResponse, e:
-            print('Error: %s\n' % str(e))
+        except rest.ErrorResponse:
+            print("Error:", sys.exc_info()[0])
             return
 
         if action == "showlog" and "cursor" in ret:
@@ -80,7 +80,7 @@ class DropBoxAccess():
         for k in ret["events"]:
             timestring = k["time"].replace("T"," ",1)
             timestring = timestring.replace("+00:00"," -0000",1)
-            print timestring + "," + json.dumps(k)
+            print(timestring + "," + json.dumps(k))
         with open('dropbox_collector_for_sumologic.ini', 'wb') as configfile:
             self.config.write(configfile)
 
@@ -95,8 +95,8 @@ class DropBoxAccess():
 
         try:
             access_token, user_id = flow.finish(code)
-        except rest.ErrorResponse, e:
-            print('Error: %s\n' % str(e))
+        except rest.ErrorResponse:
+            print("Error:", sys.exc_info()[0])
             return
 
         if not self.config.has_section("token"):
